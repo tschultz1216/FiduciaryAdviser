@@ -11,7 +11,9 @@ package fiduciaryadvisor;
  */
 public abstract class InvestmentAdviser {
 
-    public void selectQuery(int option) {}
+    public void selectQuery(int option) {
+        
+    }
     private void moneyMax(int money, int years) {}
     private void compareInvestments(int money) {}
     private void calculateGain(int money, int years, Investment investment) {}

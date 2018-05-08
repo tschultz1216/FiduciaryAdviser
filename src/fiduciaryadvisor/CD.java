@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package fiduciaryadvisor;
 
 /**
@@ -12,7 +8,7 @@ package fiduciaryadvisor;
 public class CD implements Investment {
 
     private boolean risk = false;
-    private double interestRate;
+    private float interestRate;
     private final int LEVELONE = 9325;
     private final int LEVELTWO = 37950;
     private final int LEVELTHREE = 91900;
@@ -21,24 +17,24 @@ public class CD implements Investment {
     private final int LEVELSIX = 418400;
 
     @Override
-    public float calculate(int money, int years) {
+    public float calculate(float money, int years) {
         if (years < 1) {
             return money;
         }
         if (years >= 1 && years < 3) {
-            interestRate = .022;
+            interestRate = .022f;
         }
-        if (years > 3 && years < 5) {
-            interestRate = .0235;
+        if (years >= 3 && years < 5) {
+            interestRate = .0235f;
         }
         if (years >= 5) {
-            interestRate = .028;
+            interestRate = .028f;
         }
-        double dMoney = money;
+        float gain = 0.00f;
         for (int i = 0; i < years; i++) {
-            dMoney += dMoney * interestRate;//certificate of deposits are compounded
+            gain += (money+gain) * interestRate;//certificate of deposits are compounded
         }
-        return capGains((float) dMoney);
+        return (money + capGains(gain));
     }
 
     @Override
@@ -64,6 +60,11 @@ public class CD implements Investment {
             retVal = (float) (gains - (gains * .396));
         }
         return retVal;
+    }
+    
+    @Override
+    public String toString() {
+        return "-Certificate of Deposit-";
     }
 
 }

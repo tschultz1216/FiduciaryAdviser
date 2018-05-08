@@ -12,7 +12,7 @@ package fiduciaryadvisor;
 public class Savings implements Investment {
 
     private boolean risk = false;
-    private double interestRate = .01;
+    private final float interestRate = .01f;
     private final int LEVELONE = 9325;
     private final int LEVELTWO = 37950;
     private final int LEVELTHREE = 91900;
@@ -21,12 +21,12 @@ public class Savings implements Investment {
     private final int LEVELSIX = 418400;
 
     @Override
-    public float calculate(int money, int years) {
-        double dMoney = money;
+    public float calculate(float money, int years) {
+        float gain = 0.00f;
         for (int i = 0; i < years; i++) {
-            dMoney += dMoney * interestRate;
+            gain += (money+gain) * interestRate;
         }
-        return capGains((float) dMoney);
+        return (money + capGains(gain));
     }
 
     @Override
@@ -54,4 +54,8 @@ public class Savings implements Investment {
         return retVal;
     }
 
+    @Override
+    public String toString() {
+        return "-Savings Account-";
+    }
 }

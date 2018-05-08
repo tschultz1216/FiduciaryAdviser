@@ -12,19 +12,25 @@ package fiduciaryadvisor;
 public class Offshore implements Investment {
 
     private boolean risk = true;
-    private double interestRate = .01;
+    private final float interestRate = .01f;
 
     @Override
-    public float calculate(int money, int years) {
-        double dMoney = money;
+    public float calculate(float money, int years) {
+        float gain = 0.00f;
+        
         for (int i = 0; i < years; i++) {
-            dMoney += dMoney * interestRate;
+            gain += (money+gain) * interestRate;
         }
-        return (float) dMoney;
+        return (money + gain);
     }
 
     @Override
     public boolean getRisk() {
         return this.risk;
+    }
+    
+    @Override
+    public String toString() {
+        return "-Offshore Account-";
     }
 }

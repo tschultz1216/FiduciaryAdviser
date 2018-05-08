@@ -12,6 +12,7 @@ package fiduciaryadvisor;
 public class Stocks implements Investment {
 
     private boolean risk = true;
+    private final float interestRate = 0.07f;
     private final int LEVELONE = 9325;
     private final int LEVELTWO = 37950;
     private final int LEVELTHREE = 91900;
@@ -21,13 +22,14 @@ public class Stocks implements Investment {
     
 
     @Override
-    public float calculate(int money, int years) {
-        double interestRate = .07;
-        float investment = money;
-        for(int i = 0; i < years + 1; i++){
-            investment += interestRate * investment;
-        }
-        return capGains(investment);
+    public float calculate(float money, int years) {
+        if (years > 15) return money;   //We calculate the stock market only up to 15 years
+        if (years > 12) years = 12;     //Prevents excessive gain due to calculated line
+        
+        float gain = money * (float)(0.003429*(years*years) - 0.03029*years);
+        if (gain<0) return money+gain;
+        
+        return (money + capGains(gain));
     }
 
     @Override
@@ -53,6 +55,11 @@ public class Stocks implements Investment {
             retVal = (float) (gains - (gains * .396));
         }
         return retVal;
+    }
+    
+    @Override
+    public String toString() {
+        return "-Stocks-";
     }
 
 }

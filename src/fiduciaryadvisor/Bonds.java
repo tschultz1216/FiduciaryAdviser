@@ -13,7 +13,7 @@ public class Bonds implements Investment {
 
     private boolean risk = false;
     private int bondLength = 10;
-    private double interestRate = .0425;
+    private final float interestRate = .0425f;
     private final int LEVELONE = 9325;
     private final int LEVELTWO = 37950;
     private final int LEVELTHREE = 91900;
@@ -22,12 +22,10 @@ public class Bonds implements Investment {
     private final int LEVELSIX = 418400;
 
     @Override
-    public float calculate(int money, int years) {
-        float yearlyInterest = capGains((float) (money * interestRate));//treasury bonds are not compounded
+    public float calculate(float money, int years) {
+        float yearlyInterest = capGains(money * interestRate);//treasury bonds are not compounded
         float totalMade = yearlyInterest * years;
-        if (years < bondLength) {
-            totalMade = totalMade;
-        } else if (years >= bondLength) {
+        if (years >= bondLength) {
             totalMade += money;
         }
         return totalMade;
@@ -56,6 +54,11 @@ public class Bonds implements Investment {
             retVal = (float) (gains - (gains * .396));
         }
         return retVal;
+    }
+    
+    @Override
+    public String toString() {
+        return "-Bonds-";
     }
 
 }
